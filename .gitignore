@@ -1,0 +1,6 @@
+*.sqlite3
+/media/
+migrations/
+__pycache__/
+*.pyc
+logfile

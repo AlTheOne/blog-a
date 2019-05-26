@@ -1,0 +1,41 @@
+{% extends 'mainApp/index.html' %}
+{% load staticfiles %}
+
+{% block html_title %}Достижения{% endblock %}
+
+{% block head_style %}
+<link rel="stylesheet" href="{% static 'css/achievements.css' %}">
+<link rel="stylesheet" href="{% static 'css/lightcase.css' %}">
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="row breadcrumbs">
+    <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-list-item"><a href="{% url 'main' %}">Главная</a></li>
+        <li class="breadcrumbs-list-item"><a href="{% url 'page-achiev' %}">Достижения</a></li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+
+        <div class="row justify-content-between">
+            <div id="personal" class="achievements-btn active">Личные</div>
+            <div id="students" class="achievements-btn">Воспитанников</div>
+        </div>
+
+        <div class="row justify-content-center achievements-gallery personal">
+        {% if objects %}
+        {% for obj in objects %}
+            <div class="col-11 col-sm-6 col-lg-3 align-self-center achievements-img {{obj.type_achiav}}-img">
+                <a href="/media/{{obj.image}}" data-rel="lightcase:img1">
+                    <img src="/media/{{obj.preview}}" alt="{{obj.title}}" class="img-responsive">
+                </a>
+            </div>
+        {% endfor %}
+        {% else %}
+            В данном разделе пусто...
+        {% endif%}
+        </div>
+
+{% endblock %}

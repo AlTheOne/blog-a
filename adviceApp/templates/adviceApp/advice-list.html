@@ -1,0 +1,53 @@
+{% extends 'mainApp/index.html' %}
+{% load staticfiles %}
+
+{% block html_title %}Для Вас Родители{% endblock %}
+
+{% block head_style %}<link rel="stylesheet" href="{% static 'css/for-parents.css' %}">{% endblock %}
+
+{% block breadcrumbs %}
+<div class="row breadcrumbs">
+	<ul class="breadcrumbs-list">
+		<li class="breadcrumbs-list-item"><a href="{% url 'main' %}">Главная</a></li>
+		<li class="breadcrumbs-list-item"><a href="{% url 'main-advice' %}">Для Вас Родители</a></li>
+		{% if category %}
+		<li class="breadcrumbs-list-item"><a href="{% url 'cat-advice' category=category.slug %}">{{category.title}}</a></li>
+		{% endif %}
+	</ul>
+</div>
+{% endblock %}
+
+{% block content %}
+	<div class="row categories">
+	{% for cat in categories %}
+		<div class="categories-item {% if cat.id == category.id %}active{% endif %}"><a href="{% url 'cat-advice' category=cat.slug %}">{{cat.title}}</a></div>
+	{% endfor %}
+	</div>
+
+	<div class="row parents">
+		<div class="col-12 parents">
+			<ol class="parents-list">
+			{% for obj in objects %}
+				{% if obj.myfile %}
+				<li class="parents-list-item">
+					<a href="/media/{{obj.myfile}}" target="_blank">{{obj.title}}</a>
+				</li>
+				{% else %}
+				<li class="parents-list-item">
+					<a href="{{obj.link}}" target="_blank">{{obj.title}}</a>
+				</li>
+				{% endif %}
+			{% endfor %}
+			</ol>
+		</div>
+	</div>
+
+	{% if is_paginated %}
+		{% block pagination %}
+		<div class="row pagination justify-content-center align-self-end">
+			{% load bootstrap4 %}
+			{% bootstrap_pagination page_obj pages_to_show=5 %}
+		</div>
+		{% endblock %}
+	{% endif%}
+{% endblock %}

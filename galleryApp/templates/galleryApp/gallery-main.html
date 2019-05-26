@@ -1,0 +1,53 @@
+{% extends 'mainApp/index.html' %}
+{% load staticfiles %}
+
+
+{% block head_style %}
+<link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+<link rel="stylesheet" href="{% static 'css/lightcase.css' %}">
+{% endblock %}
+
+{% block html_title %}Галерея {% if category %}- {{category.title}}{% endif %}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="row breadcrumbs">
+    <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-list-item"><a href="{% url 'main' %}">Главная</a></li>
+        <li class="breadcrumbs-list-item"><a href="{% url 'main-gallery' %}">Галерея</a></li>
+        {% if category %}
+        <li class="breadcrumbs-list-item"><a href="{% url 'cat-gallery' category=category.slug %}">{{category.title}}</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+    <div class="row categories">
+    {% for cat in categories %}
+        <div class="categories-item {% if cat.id == category.id %}active{% endif %}"><a href="{% url 'cat-gallery' category=cat.slug %}">{{cat.title}}</a></div>
+    {% endfor %}
+    </div>
+
+    <div class="row gallery-template justify-content-center">
+    {% if objects %}
+        {% for obj in objects %}
+        <div class="col-11 col-sm-6 col-lg-3 align-self-center gallery-img-wrapper">
+            <a href="/media/{{obj.image}}" data-rel="lightcase:img1">
+                <img src="/media/{{obj.preview}}" alt="{{obj.title}}" class="gallery-img ">
+            </a>
+        </div>
+        {% endfor %}
+    {% else %}
+        В данном разделе пусто...
+    {% endif%}
+    </div>
+
+    {% if is_paginated %}
+        {% block pagination %}
+        <div class="row pagination justify-content-center">
+            {% load bootstrap4 %}
+            {% bootstrap_pagination page_obj pages_to_show=5 %}
+        </div>
+        {% endblock %}
+    {% endif%}
+{% endblock %}

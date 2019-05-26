@@ -1,0 +1,38 @@
+{% extends 'mainApp/index.html' %}
+{% load staticfiles %}
+
+
+{% block html_title %}Нормативно-правовая база{% endblock %}
+
+{% block head_style %}
+<link rel="stylesheet" href="{% static 'css/n-base.css' %}">
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="row breadcrumbs">
+	<ul class="breadcrumbs-list">
+		<li class="breadcrumbs-list-item"><a href="{% url 'main' %}">Главная</a></li>
+		<li class="breadcrumbs-list-item"><a href="{% url 'main-nbase' %}">Нормативно-правовая база</a></li>
+	</ul>
+</div>
+{% endblock %}
+
+{% block content %}
+	<div class="row n-base">
+		<div class="col-12">
+			<ul class="n-base-list">
+			{% for obj in objects %}
+				{% if obj.myfile %}
+				<li class="n-base-list-item">
+					<a href="/media/{{obj.myfile}}" target="_blank">{{obj.title}}</a>
+				</li>
+				{% else %}
+				<li class="n-base-list-item">
+					<a href="{{obj.link}}" target="_blank">{{obj.title}}</a>
+				</li>
+				{% endif %}
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% endblock %}

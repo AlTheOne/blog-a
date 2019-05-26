@@ -1,0 +1,16 @@
+{% extends 'mainApp/index.html' %}
+
+{% block content %}
+    <a href="{% url 'feedback' %}">Обратная связь</a>
+
+    <form id="feedback_form" action="{% url 'feedback' %}" method="POST">
+        {% csrf_token %}
+        {{form_feedback.errors}} <br>
+        {{form_feedback.name}} <br>
+        {{form_feedback.email}} <br>
+        {{form_feedback.phone}} <br>
+        {{form_feedback.message}} <br>
+        <div class="g-recaptcha" data-sitekey="6LcpLloUAAAAAEGkqkRYa5hU-uIgzs70nJcTa5MA"></div>
+        <input type="submit" id="send-button" value="Отправить">
+    </form>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="ru-RU">
+<head>
+    <meta charset="utf-8">
+    <title>{% block html_title %}Сайт-портфолио воспитателя{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width">
+    <!-- ------------------------------------------------------------------------------------------ -->
+    <meta content="Кадырова Айгуль Маратовна. Воспитатель высшей квалификационной категории" name="description">
+    <!-- Favicons start-->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'img/favicon/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'img/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+    <link rel="shortcut icon" href="{% static 'img/favicon/favicon.ico' %}">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="msapplication-config" content="{% static 'img/favicon/browserconfig.xml' %}">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Favicons end-->
+    <!--CSS-->
+    <link rel="stylesheet" href="{% static 'css/nanoscroller.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tingle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% block head_style %}{% endblock %}
+    <!--CSS end-->
+</head>
+<body oncopy="return !1;">
+    <div id="overlay"></div>
+
+    <div class="burger d-md-none">
+        <div class="burger-line line1"></div>
+        <div class="burger-line line2"></div>
+        <div class="burger-line line3"></div>
+    </div>
+    <div class="top-bar d-md-none">
+        <!-- <div class="callback">Обратная связь</div> -->
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+            viewBox="0 0 224 224"
+            class="callback"
+            style=" fill:#000000;">
+            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,224v-224h224v224z" fill="none"></path><g class="callback-fill"><path d="M37.33333,28c-10.26667,0 -18.66667,8.4 -18.66667,18.66667v100.73438c0,4.15333 5.02615,6.23947 7.96615,3.29947l20.03385,-20.03385h84c10.26667,0 18.66667,-8.4 18.66667,-18.66667v-65.33333c0,-10.26667 -8.4,-18.66667 -18.66667,-18.66667zM168,74.66667v37.33333c0,20.61733 -16.716,37.33333 -37.33333,37.33333h-56v9.33333c0,10.26667 8.4,18.66667 18.66667,18.66667h84l20.03385,20.03385c2.94,2.94 7.96615,0.85386 7.96615,-3.29947v-100.73438c0,-10.26667 -8.4,-18.66667 -18.66667,-18.66667z"></path></g></g></svg>
+    </div>
+    <div class="modal-source">
+        <div class="modal-close"></div>
+        <form id="feedback_form" action="{% url 'feedback' %}" method="POST">
+            <div class="feedback-info"></div>
+            {% csrf_token %}
+            {{form_feedback.errors}} <br>
+            {{form_feedback.name}} <br>
+            {{form_feedback.email}} <br>
+            {{form_feedback.phone}} <br>
+            {{form_feedback.message}} <br>
+            <input type="submit" id="send-button" class="modal-submit" value="Отправить">
+        </form>
+    </div>
+
+    <div class="header-bg">
+        <div class="container">
+            <header class="row align-items-end header justify-content-center">
+                <div class="col-lg-2 offset-lg-1 col-sm-4 offset-sm-0 col-7">
+                    <img src="{% static 'img/header/bubble.png' %}" alt="Кадырова Айгуль Маратовна" class="photo">
+                </div>
+                <div class="col-lg-7 offset-lg-2 col-sm-8 offset-sm-0 col-12">
+                    <h1 class="header-text">Я - воспитатель и этим горжусь,<br>Что вместе с детьми жить на свете учусь!</h1>
+                </div>
+            </header>
+        </div>
+    </div>
+
+    <section class="container mainpage">
+        <div class="row">
+            <navbar class="col-12 col-md-4 col-lg-3 nav nano">
+                <div class="nano-content">
+                    <ul class="nav-list">
+                        <li class="nav-list-item home"><a href="{% url 'main' %}">Главная</a></li>
+                        <li class="nav-list-item portfolio"><a href="{% url 'static-page' page='portfolio' %}">Портфолио</a></li>
+                        <li class="nav-list-item achievements"><a href="{% url 'page-achiev' %}">Достижения</a></li>
+                        <li class="nav-list-item method"><a href="{% url 'main-mbase' %}">Методическа копилка</a></li>
+                        <li class="nav-list-item gallery"><a href="{% url 'main-gallery' %}">Галерея</a></li>
+                        <li class="nav-list-item creation"><a href="{% url 'main-creation' %}">Моё творчество</a></li>
+                        <li class="nav-list-item parents"><a href="{% url 'main-advice' %}">Для вас родители</a></li>
+                        <li class="nav-list-item base"><a href="{% url 'main-nbase' %}">Нормативно-правовая база</a></li>
+                    </ul>
+                    <div class="nav-line"></div>
+                    {% block advice %}
+                    <ul class="nav-sublist">
+                    {% for obj in random_advice %}
+                        {% if obj.myfile %}
+                        <li class="nav-sublist-item" title="{{obj.title}}">
+                            <a href="/media/{{obj.myfile}}" target="_blank">{{obj.title}}</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-sublist-item" title="{{obj.title}}">
+                            <a href="{{obj.link}}" target="_blank">{{obj.title}}</a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                    {% endblock %}
+                    <div class="nav-line d-none d-md-block"></div>
+                    <ul class="nav-list d-none d-md-block">
+                        <li class="nav-list-item callback">Обратная связь</li>
+                    </ul>
+                </div>
+            </navbar>
+            <section class="col-12 col-md-8 col-lg-9 content">
+                {% block breadcrumbs %}{% endblock %}
+                {% block content %}
+                В данном разделе нет материалов...
+                {% endblock %}
+            </section>
+            </div>
+        </div>
+    </section>
+
+    <footer class="container-fluid footer-bg">
+        <footer class="row footer justify-content-around align-items-end">
+            <div class="col-xl-auto col-lg-4 col-md-6 col-sm-6 col-12 order-1 footer-contact">
+                <h6 class="footer-contact-header">Контактные&nbsp;данные</h6>
+                <span class="footer-contact-phone">Номер телефона:&nbsp;<a href="tel: +79273338791">+7&nbsp;(927)&nbsp;333&nbsp;87&nbsp;91</a></span>
+                <span class="email">Почта:&nbsp;<a href="mailto: kadyrova.80@bk.ru">kadyrova.80@bk.ru</a></span>
+                <span class="vk">ВКотакте:&nbsp;<a target="_blank" href="https://vk.com/id150871996">https://vk.com/id150871996</a></span>
+            </div>
+            <div class="col-xl-auto col-lg-4 col-md-12 col-sm-6 col-12 order-3  footer-copyright">
+                <p class="footer-copyright-text">© 2018-2019&nbsp;Kadirova-Aygul.ru</p>
+                <p class="footer-copyright-text">Все&nbsp;права&nbsp;защищены.</p>
+                <p class="footer-copyright-text">Любое&nbsp;копирование&nbsp;материалов сайта&nbsp;&mdash;&nbsp;запрещено.</p>
+            </div>
+            <div class="col-xl-auto col-lg-4 order-lg-3 col-md-6 order-2 d-none d-md-block align-self-center">
+                <div class="footer-education">
+                    <a href="https://education.bashkortostan.ru" target="_blank" class="footer-education-link">Сайт Министерства образования РБ</a>
+                    <a href="https://irorb.ru" target="_blank" class="footer-education-link">Институт развития образования РБ</a>
+                    <a href="https://www.eduprofrb.ru/faq" target="_blank" class="footer-education-link">Профсоюз работников народного образования и науки РФ</a>
+                </div>
+            </div>
+        </footer>
+    </footer>
+
+    <script src="{% static 'js/scripts.min.js' %}"></script>
+</body>
+</html>

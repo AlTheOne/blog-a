@@ -1,0 +1,66 @@
+{% extends 'mainApp/index.html' %}
+{% load staticfiles %}
+
+
+{% block html_title %}Методическая копилка {% if category %}- {{category.title}}{% endif %}{% endblock %}
+
+{% block head_style %}
+<link rel="stylesheet" href="{% static 'css/m-base.css' %}">
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="row breadcrumbs">
+	<ul class="breadcrumbs-list">
+		<li class="breadcrumbs-list-item"><a href="{% url 'main' %}">Главная</a></li>
+		<li class="breadcrumbs-list-item"><a href="{% url 'main-mbase' %}">Методическая копилка</a></li>
+		{% if category %}
+		<li class="breadcrumbs-list-item"><a href="{% url 'cat-mbase' category=category.slug %}">{{category.title}}</a></li>
+		{% endif %}
+	</ul>
+</div>
+{% endblock %}
+
+{% block content %}
+	<div class="row categories">
+	{% for cat in categories %}
+		<div class="categories-item {% if cat.id == category.id %}active{% endif %}"><a href="{% url 'cat-mbase' category=cat.slug %}">{{cat.title}}</a></div>
+	{% endfor %}
+	</div>
+
+	{% if objects %}
+	{% for obj in objects %}
+	<article class="article row no-gutters justify-content-center">
+		<div class="col-md-3 col-8 article-img-wrapper">
+				<a href="{% url 'page-mbase' category=obj.category.slug id=obj.id %}" rel="nofollow"><img src="/media/{{obj.preview}}" alt="{{obj.category.title}}" class="article-img img-responsive"></a>
+		</div>
+		<div class="col-md-9 col-12 article-content">
+			<span class="article-category d-none d-md-block">
+				<a href="{% url 'cat-mbase' category=obj.category.slug %}">{{obj.category.title|capfirst}}</a>
+			</span>
+			<h5 class="article-header">
+				<a href="{% url 'page-mbase' category=obj.category.slug id=obj.id %}" rel="nofollow">{{obj.title}}</a>
+			</h5>
+			<p class="article-text">{{obj.description|safe|truncatechars:150}}</p>
+			<div class="article-info">
+				<noindex>
+					<div class="article-info-published">{{obj.created|date:"d b Y"}}</div>
+					<div class="article-info-views">{{obj.data_hit.hits}}</div>
+				</noindex>
+			</div>
+		</div>
+	</article>
+	{% endfor %}
+	{% else %}
+		В данном разделе нет материалов...
+	{% endif%}
+
+	{% if is_paginated %}
+		{% block pagination %}
+		<div class="row pagination justify-content-center">
+			{% load bootstrap4 %}
+			{% bootstrap_pagination page_obj pages_to_show=5 %}
+		</div>
+		{% endblock %}
+	{% endif%}
+
+{% endblock %}

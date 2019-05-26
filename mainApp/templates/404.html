@@ -1,0 +1,89 @@
+{% load staticfiles %}
+<!DOCTYPE>
+<html><head><title>404 Страница не найдена</title>
+<meta http-equiv="Refresh" content="24;url=https://kadyrova-aygul.ru/">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" name="Keywords">
+<script language="javascript">
+<!--
+var tl = new Array(
+"Страница, которую вы запрашиваете, не существует. Наш сайт расположен по адресу https://kadyrova-aygul.ru/",
+"URL неправильный.",
+"Сейчас вы будете, переадресованы на главную страницу сайта",
+"5",
+"4",
+"3",
+"2",
+"1",
+"Переходим...",
+""
+);
+
+var speed = 40;
+var index = 0; text_pos = 0;
+var str_length = tl[0].length;
+var contents, row;
+
+function type_text()
+{
+    contents = '';
+    row = Math.max(0, index-7);
+    while (row<index) contents += tl[row++] + '\r\n';
+    document.forms[0].elements[0].value = contents + tl[index].substring(0,text_pos) + "_";
+    if (text_pos ++== str_length)
+    {
+        text_pos = 0;
+        index++;
+        if (index != tl.length)
+        {
+            str_length = tl[index].length;
+            setTimeout("type_text()", 1500);
+        }
+    } else
+    setTimeout("type_text()", speed);
+}
+//-->
+</script> <style type="text/css">
+body, td {font-family:Tahoma,Arial;font-size:9pt;}
+a:link {text-decoration:underline; color:#0000FF}
+a:visited {text-decoration:underline; color:#0000FF}
+a:hover {text-decoration:underline; color:#FF0000}
+.copy {font-size:8pt;}
+</style>
+</head>
+<body onload=type_text() bgcolor="#FFFFFF">
+<table style="height:95%; width:100%;" border="0">
+<tr style="height:100;"><td valign="top" align="center">
+
+<Table align="center">
+<tr>
+<td>
+<center>
+<img src="{% static 'img/404.jpg' %}">
+</center>
+</td>
+<td>
+<center>
+<b style="font-size:150;">404</b>
+</td>
+</tr>
+</table>
+
+<h1><font color="" size="+3"><strong>Страница не найдена! Page Not Found!</strong></font></h1>
+</td></tr>
+<tr><td valign="top" align="center">
+<p>Запрошенный Вами ресурс отсутствует на нашем <a href="/"><b>сайте</b></a> </p>
+<p>Если этот ресурс, по Вашему мнению, должен здесь быть:
+<p>Свяжитесь с администрацией сайта, с указанием ошибки.</p>
+<br><br>
+<FORM><TEXTAREA rows=8 cols=60>
+</TEXTAREA></FORM>
+<br>
+</td></tr>
+<tr><td valign="bottom" align="center" class="copy">
+<a href="/">Главная</a> | <a href="https://kadyrova-aygul.ru/portfolio/">Портфолио</a> | <a href="https://kadyrova-aygul.ru/achiev-board/">Методическая копилка</a> | <a href="https://kadyrova-aygul.ru/gallery/">Галерея</a> | <a href="https://kadyrova-aygul.ru/creation/">Моё творчество</a> | <a href="https://kadyrova-aygul.ru/advices-for-parents/">Для Вас родители</a>
+<div align="center">
+</div>
+</td></tr>
+</table>
+</body>
+</html>

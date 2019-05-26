@@ -1,0 +1,41 @@
+{% extends 'mainApp/index.html' %}
+{% load staticfiles %}
+
+
+{% block html_title %}{{objects.title}}{% endblock %}
+
+{% block head_style %}
+<link rel="stylesheet" href="{% static 'css/newspage.css' %}">
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="row breadcrumbs">
+    <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-list-item"><a href="{% url 'main' %}">Главная</a></li>
+        <li class="breadcrumbs-list-item"><a href="{% url 'main-mbase' %}">Методическая копилка</a></li>
+        <li class="breadcrumbs-list-item">
+            <a href="{% url 'cat-mbase' category=objects.category.slug %}">{{objects.category.title}}</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+    <div class="row article justify-content-center">
+        <div class="col-12">
+                <h2 class="article-header">{{objects.title}}</h2>
+        </div>
+        <div class="col-10 article-img-wrapper">
+            <img src="/media/{{objects.image}}" alt="{{objects.title}}" class="article-img img-responsive">
+        </div>
+        <div class="col-12 article-body">
+            <p class="article-text">{{objects.content|safe}}</p>
+        </div>
+        <div class="col-12 article-info">
+            <noindex>
+                <div class="article-info-published">{{objects.created|date:"d b Y"}}</div>
+                <div class="article-info-views">{{objects.data_hit.hits}}</div>
+            </noindex>
+        </div>
+    </div>
+{% endblock %}
