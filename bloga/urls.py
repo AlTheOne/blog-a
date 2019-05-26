@@ -48,4 +48,7 @@ urlpatterns = [
     path('normative-base/', include('nbaseApp.urls')),
     path('feedback/', include('feedbackApp.urls')),
     path('', include('mainApp.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
