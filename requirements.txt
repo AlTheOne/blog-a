@@ -1,7 +1,7 @@
 bleach==3.0.2
 certifi==2018.11.29
 chardet==3.0.4
-Django==2.1.5
+Django==2.2.13
 django-bootstrap4==0.0.7
 django-tinymce4-lite==1.7.3
 idna==2.8
